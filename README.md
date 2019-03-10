@@ -25,9 +25,9 @@ rtt min/avg/max/mdev = 2.825/3.108/3.503/0.268 ms
 
 On effectue un ping `client1` &rarr; `server1` en capturant le trafic sur les deux interfaces de `router2`.
 
-Trafic capturé sur `net2` [ici](./capnet2.pcap).
+Trafic capturé sur `net2` [ici](Captures/capnet2.pcap).
 
-Du point de vue de `net12`, c'est [par ici!](./capnet12.pcap)
+Du point de vue de `net12`, c'est [par ici!](Captures/capnet12.pcap)
 
 En observant le trafic réseau généré par ce `ping`, on constate que l'échange ARP est différent sur les deux interfaces, chacune gère sa propre table!
 
