@@ -75,3 +75,50 @@ The document has moved
 Malheureusement, je n'ai pas réussi avec `server1`, mais vu qu'on ne veut pas que le serveur puisse joindre internet, on va dire que c'est bon!
 
 <img src="https://media.giphy.com/media/13Qumr2SLqrl5e/giphy.gif"/>
+
+## Configuration d'un serveur NTP:
+
+Sur `router1`, on modifie le fichier `/etc/chrony.conf`:
+
+```
+[dams@router1 ~]$ diff /etc/chrony.conf /etc/chrony.conf.orig
+3,6c3,7  
+// On remplace les serveurs par défaut par ceux recommandés par le NTP Pool Project.
+< server 0.fr.pool.ntp.org
+< server 1.fr.pool.ntp.org
+< server 2.fr.pool.ntp.org
+< server 3.fr.pool.ntp.org
+---
+> server 0.centos.pool.ntp.org iburst
+> server 1.centos.pool.ntp.org iburst
+> server 2.centos.pool.ntp.org iburst
+> server 3.centos.pool.ntp.org iburst
+>
+
+16a18,24   // Ces lignes sont superflues, supprimons les!
+> # Enable hardware timestamping on all interfaces that support it.
+> #hwtimestamp *
+>
+> # Increase the minimum number of selectable sources required to adjust
+> # the system clock.
+> #minsources 2
+>
+
+//Enfin, décommentons certaines options!
+18c26
+< allow 10.2.1.0/24
+---
+> #allow 192.168.0.0/16
+21c29
+< local stratum 10
+---
+> #local stratum 10
+24c32
+< keyfile /etc/chrony.keys
+---
+> #keyfile /etc/chrony.keys
+30c38
+< log measurements statistics tracking
+---
+> #log measurements statistics tracking
+```
